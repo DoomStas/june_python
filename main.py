@@ -1,5 +1,5 @@
 # Task 1
-name = input("Name: ")
+name = int(input("Name: "))
 print(f"Hello, {name}!")
 
 
@@ -54,8 +54,8 @@ year_10 = 10
 year_20 = 20
 year_30 = 30
 
-a_10 = p * (1 + r)  year_10
-a_20 = p * (1 + r)  year_20
+a_10 = p * (1 + r) ** year_10
+a_20 = p * (1 + r) ** year_20
 a_30 = p * (1 + r) ** year_30
 
 print(f"Депозит через {year_10} лет: {a_10} $")
