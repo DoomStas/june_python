@@ -13,7 +13,7 @@ number_5 = int(input("Enter the numbers: "))
 
 min_num = min(number_1, number_2, number_3, number_4, number_5)
 max_num = max(number_1, number_2, number_3, number_4, number_5)
-average_num = int(number_1 + number_2 + number_3 + number_4 + number_5)/ 5
+average_num = (number_1 + number_2 + number_3 + number_4 + number_5)/ 5
 
 print(f"Минимальное значение: {min_num}")
 print(f"Максимальное значение: {max_num}")
@@ -23,8 +23,8 @@ print(f"Среднее значение: {average_num}")
 
 # Task 3
 
-x = float(input("Enter first number: "))
-y = float(input("Enter second number: "))
+x = int(input("Enter first number: "))
+y = int(input("Enter second number: "))
 
 print(x+y)
 print(x-y)
@@ -35,11 +35,12 @@ print(x//y)
 
 # Task 4
 
-radius = int(input("Enter radius: "))
+import math
+radius = float(input("Enter radius: "))
 
 diameter = 2 * radius
-circumference = 2 * radius * 3.14
-area = 3.14 * radius**2
+circumference = 2 * radius * math.pi
+area = math.pi * radius**2
 
 print(f"Диаметр: {diameter}")
 print(f"Длина: {circumference}")
@@ -58,9 +59,9 @@ a_10 = p * (1 + r) ** year_10
 a_20 = p * (1 + r) ** year_20
 a_30 = p * (1 + r) ** year_30
 
-print(f"Депозит через {year_10} лет: {a_10} $")
-print(f"Депозит через {year_20} лет: {a_20} $")
-print(f"Депозит через {year_30} лет: {a_30} $")
+print(f"Депозит через {year_10} лет: {a_10:.2f} $")
+print(f"Депозит через {year_20} лет: {a_20:.2f} $")
+print(f"Депозит через {year_30} лет: {a_30:.2f} $")
 
 # Task 6
 
@@ -68,7 +69,7 @@ dolars = int(input("Введите сумму для конвертации: "))
 
 ua= dolars * 40.64
 
-print(f"При обмене Вы получите: {ua} гривен")
+print(f"При обмене Вы получите: {ua:.2f} гривен")
 
 # Task 7
 
