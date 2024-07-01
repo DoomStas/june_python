@@ -1,15 +1,15 @@
 # Task 1
-name = int(input("Name: "))
+name = input("Name: ")
 print(f"Hello, {name}!")
 
 
 # Task 2
 
-number_1 = input("Enter the numbers: ")
-number_2 = input("Enter the numbers: ")
-number_3 = input("Enter the numbers: ")
-number_4 = input("Enter the numbers: ")
-number_5 = input("Enter the numbers: ")
+number_1 = int(input("Enter the numbers: "))
+number_2 = int(input("Enter the numbers: "))
+number_3 = int(input("Enter the numbers: "))
+number_4 = int(input("Enter the numbers: "))
+number_5 = int(input("Enter the numbers: "))
 
 min_num = min(number_1, number_2, number_3, number_4, number_5)
 max_num = max(number_1, number_2, number_3, number_4, number_5)
