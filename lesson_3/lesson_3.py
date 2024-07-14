@@ -20,11 +20,9 @@ print (f"Your number on floar is: {num_on_floar}")
 # Task 2
 
 year = int(input("Enter the year: "))
-high_year = (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
-if high_year:
-    print("366")
-else:
-    print("365")
+high_year = "366" if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0) else "365"
+print(high_year)
+
 
 
 # Task 3
