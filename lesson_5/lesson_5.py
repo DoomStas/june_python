@@ -8,7 +8,7 @@ summa = 0
 count = 0
 
 for i in range(1, 100):
-    if i % 2 !=0:
+    if i % 2:
         summa +=i
         count +=1
 
@@ -24,7 +24,6 @@ while i <= 200:
     count += 1
     if count % 5 == 0:
         print()
-
     i += 1
 
 
@@ -36,18 +35,15 @@ factorial = 1
 if factorial < 0:
     print("Error")
 else:
-    for i in range(1, n+1):
+    for i in range(2, n + 1):
         factorial *= i
-    print(f'Factorial {n} is {factorial}')
+    print(factorial)             
 
 
 # Task 5
 
-x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-for i in x:
-    res = i * 5
-    print(f"{i} x 5 = {res}")
+for i in range(1, 11):
+    print(f"{i} x 5 = {i * 5}")
 
 # Task 6
 
@@ -59,13 +55,25 @@ for i in range(height):
         print("*", end="")
     print()
 
+
+# Task 6_2
+
+width, height = int(input("Enter width")), int(input("Enter height"))
+
+res = f"{"*" * width}\n" + f"*{" " * (width - 2)}*\n" * (height - 2) + f"{"*" * width}\n"
+print(res)
+
+
 # Task 7
 
-x = [0, 5, 2, 4, 7, 1, 3, 19]
+n = [0, 5, 2, 4, 7, 1, 3, 19]
+count = 0
+for item in n:
+    for digit in str(item):
+        if int(digit) % 2:
+            count += 1
+print(count)
 
-for num in x:
-    if num % 2 !=0:
-        print(num)
 
 
 #Task 8
@@ -87,18 +95,33 @@ while len(salary) <12:
     salary.append(s)
 print(f"Averge salary: {sum(salary) / len(salary)}")
 
+# Task 9_2
+
+import random
+salary = [random.randint(1_000, 5_000) for _ in range(12)]
+print(salary)
+print(f'Avg: {sum(salary) / len(salary):.2f}')
+
 
 # Task 10
 
-x = [1, 2, 3, 4]
-y = [5, 6, 7, 8]
-z = [9, 10, 11, 12]
-j = [13, 14, 15, 16]
+a = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+s = 0
+for i in range(3):
+    for j in range(3):
+        s += a[i][j]
+print(s)
 
-res = [x[i] + y[i] + z[i] + j[i] for i in range(len(x))]
 
-print(x, y, z, j, res)
 
+# Task 10_2
+
+a = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+s = 0
+for row in a:
+    s += sum(row)
+    print(*row, sep='\t')
+print(s)
 
 
 # Task 11
@@ -109,17 +132,24 @@ i.reverse()
 print(i)
 
 
+# Task 11_2
+
+i = input("Enter list: ")
+for item in reversed(i):
+    print(item)
+
+
 
 # Task 12
 
-for num in range(2, 101):
-    is_prime = True
-    for i in range(2, int(num**0.5) + 1):
-        if num % i == 0:
-            is_prime = False
+res = []
+for n in range(2, 100):
+    for i in range(2, n):
+        if n % i == 0:
             break
-    if is_prime:
-        print(num)
+    else:
+        res.append(n)
+print(res)
 
 
 # Task 13
@@ -127,18 +157,22 @@ for num in range(2, 101):
 
 x = int(input("Enter number: "))
 
+
+
+
+stars = int(input("Enter the number of stars: "))
+spaces = 0
+res = []
+
 if x % 2 == 0:
     print("Error")
 
-else:
-    for i in range(x, 0, -2):
-        y = (x - i) // 2
-        print(" " * y + "*" * i)
+for i in range(stars, 0, -2):
+    res.append(f"{' ' * spaces}{'*' * i}")
+    spaces += 1
 
-    for i in range(3, x + 1, 2):
-        y = (x - i) // 2
-        print(" " * y + "*" * i)
-
+res += res[-2::-1]
+print("\n".join(res))
 
 
 # Klass work
