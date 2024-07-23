@@ -73,7 +73,7 @@ print(short_word)
 
 
 
-# Task 7
+# Task 7 FALSE
 
 
 cod = input("Past yor code: ")
@@ -90,7 +90,38 @@ for i in cod:
 print(clear_text)
 
 
+# Task 7 TRUE
 
+html = """
+<ul class="menu" role="tree">
+    <li class="python-meta current_item selectedcurrent_branch selected">
+        <a href="/" title="The Python Programming Language" class="current_item selectedcurrent_branch selected">Python</a>
+    </li>
+    <li class="psf-meta ">
+        <a href="https://www.python.org/psf/" title="The Python Software Foundation" >PSF</a>
+    </li>
+    <li class="docs-meta ">
+        <a href="https://docs.python.org" title="Python Documentation" >Docs</a>
+    </li>
+    <li class="pypi-meta ">
+        <a href="https://pypi.org/" title="Python Package Index" >PyPI</a>
+    </li>
+    <li class="jobs-meta ">
+        <a href="/jobs/" title="Python Job Board" >Jobs</a>
+    </li>
+    <li class="shop-meta ">
+        <a href="/community-landing/"  >Community</a>
+    </li>
+</ul>
+"""
+
+while '<' in html:
+    start = html.find('<')
+    end = html.find('>')
+    tag = html[start:end + 1]
+    html = html.replace(tag, '')
+
+print(html)
 
 
 # Klass work

@@ -1,6 +1,6 @@
-# Task 1
+# Task 1 FASLE
 
-text = input('Enter your text: ')
+text = input('Enter your text: ').lower()
 words = text.split()
 res= {}
 
@@ -11,6 +11,19 @@ for word in words:
         res[word] = 1
 print(res)
 
+# Task 1 TRUE
+
+
+text = input('text>>>').lower()
+
+for item in ',.!?;:':
+    text = text.replace(item, ' ')
+
+text = text.split()
+res = {}
+for word in text:
+    res[word] = res.get(word, 0) + 1
+print(res)
 
 # Task 2
 
@@ -32,14 +45,14 @@ else:
 # Task 3
 contact = {}
 option = input("Enter the option number: 1- add contact, 2 - del. contact, 3 - See number: ").strip()
-
-if option == 1:
+menu = int(option)
+if menu == 1:
     name = input("Enter the name: ").strip()
     telefon = input("Enter the number: ").strip()
     contact[name] = telefon
     print('Number add')
 
-elif option == 2:
+elif menu == 2:
     clean_num = input("Enter name who you need delet: ").strip()
     if clean_num in contact:
         del contact[clean_num]
@@ -47,12 +60,36 @@ elif option == 2:
     else:
         print(f"{clean_num} no in contacts")
 
-elif option == 3:
+elif menu == 3:
     numbers = input("Enter the name who you need see telefon number: ").strip()
     if numbers in contact:
         print(f"Telefon number {numbers} is {contact[numbers]}")
     else:
         print(f"{numbers} is not in contacts")
+
+#Task 4 TRUE
+
+prompt = 'add - додати контакт\nprint - вивести список контактів\ndelete - видалити контакт\nexit - вийти\n>>>'
+
+contacts = {}
+
+while (answer := input(prompt).lower()) != 'exit':
+    if answer == 'add':
+        name = input('name>>>')
+        phone = input('phone>>>')
+        contacts[name] = phone
+    elif answer == 'print':
+        for name, phone in contacts.items():
+            print(f'{name} - {phone}')
+    elif answer == 'delete':
+        name = input('name>>>')
+        if name in contacts:
+            del contacts[name]
+        else:
+            print('No such contact')
+    else:
+        print('No such command')
+
 
 
 # Task 4
