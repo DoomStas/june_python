@@ -12,9 +12,11 @@ else:
 # Task 2
 
 text = input('Enter the text: ')
-words = len(set(text.split()))
-
-print(words)
+count = 0
+for i in text:
+    if text.count(i) == 1:
+        count += 1
+print(count)
 
 
 # Task 3
@@ -38,43 +40,43 @@ else:
     print('You have not uniqui words in text')
 
 
-# # Task 4
-#
-# friendships = {
-#     "Stas": {"Dima", "Dan", "Jan"},
-#     "Dima": {"Stas", "Dan"},
-#     "Dan": {"Stas", "Dima", "Jan"},
-#     "Jan": {"Stas", "Dan"}
-# }
-#
-# user_names = input('Enter names: ').split()
-# user_names = set(user_names)
-#
-# for user_name in user_names:
-#     if user_name in friendships:
-#         common = friendships[user_name] & user_names
-#         print(f"Common friends with {user_name}: {common}")
-#     else:
-#         print(f"{user_name} is not in friends")
+# Task 4
+
+friendships = {
+    "Stas": {"Dima", "Dan", "Jan"},
+    "Dima": {"Stas", "Dan"},
+    "Dan": {"Stas", "Dima", "Jan"},
+    "Jan": {"Stas", "Dan"}
+}
+
+user_1 = input('Enter names: ')
+user_2 = input('Enter names: ')
+
+friends_1 = friendships.get(user_1,set)
+friends_2 = friendships.get(user_1,set)
+
+mutual_friends = friends_1 & friends_2
+mutual_friends = mutual_friends or 'No mutual driends'
+
+print(mutual_friends)
 
 
 
 # Task 5
 
-text_1 = set(input('Enter text: ').lower().split())
-text_2 = set(input('Enter text: ').lower().split())
+import string
+text_1 = input('Enter text: ')
+text_2 = input('Enter text: ')
 
-common = text_1 & text_2
+for item in string.punctuation:
+    text_1 = text_1.replace(item, ' ')
+    text_2 = text_2.replace(item, ' ')
 
-if common:
-    long = max(common)
-    print(f'Longest word is {long}')
-else:
-    print('In texts not found double words')
+text_1 = set(text_1.lower().split())
+text_2 = set(text_2.lower().split())
 
-
-
-
+comon_words = text_1 & text_2
+print(max(comon_words, key=len))
 
 
 
