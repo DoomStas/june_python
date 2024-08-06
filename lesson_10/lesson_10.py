@@ -58,3 +58,5 @@ print(f'Number of purchases {user_name}: {purchases_mem}')
 print(f'Total amount spent {user_name}: {total_spent:.2f}')
 
 
+
+
