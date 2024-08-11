@@ -1,30 +1,71 @@
-# Task 1
+class Discount:
+    def apply(self, price: float):
+        raise NotImplementedError('Method apply is guilty of re-assignments in similar classes')
+
+class Percentage_Discount(Discount):
+    def __init__(self, percentage: float):
+        self.percentege = percentage
+    def apply(self, price: float):
+        discount_amount = price * (self.percentege / 100)
+        return price - discount_amount
+
+class Fixid_Amount_Discount(Discount):
+    def __init__(self, amount: float):
+        self.amount = amount
+    def apply(self, price: float):
+        return max(0, price - self.amount)
+
+class DiscountMixin:
+    def apply_discount(self, discount: Discount):
+        for product in self.products:
+            new_price = discount.apply(self.products[product] * product.price_product)
+            product.price_product = new_price / self.products[product]
+
+class PaymentProcessor:
+    def pay(self, amount: float):
+        raise NotImplementedError('Method pay is guilty of re-assignments in similar classes')
+
+class Credit_Card_Processor(PaymentProcessor):
+    def pay(self, amount: float):
+        print(f'Credit card payment in the amount of {amount:.2f} was successful.')
+
+class Pay_Pal_Processor(PaymentProcessor):
+    def pay(self, amount: float):
+        print(f'PayPal payment for ${amount:.2f} was successful.')
+
+class Bank_Transfer_Processor(PaymentProcessor):
+    def pay(self, amount: float):
+        print(f'Payment via bank transfer in the amount of ${amount:.2f} was successful.')
 
 class Product:
-    def __init__(self, product_name, description_product, price_product):
+    """
+    Class for product representation.
+    """
+    def __init__(self, product_name, description_product, price_product: int | float):
         self.product_name = product_name
         self.description_product = description_product
-        self.price_product = float(price_product)
+        self.price_product = price_product
 
     def __str__(self):
         return f'{self.product_name} - {self.description_product}: ${self.price_product:.2f}'
 
 
-class Cart:
+class Cart(DiscountMixin):
 
     def __init__(self, title):
         self.title = title
         self.products = {}
 
-    def add_product(self,product: Product, quantity=1):
-        if isinstance(product, Product):
-            if product in self.products:
-                self.products[product] += quantity
-            else:
-                self.products[product] = quantity
+    def add_product(self,product: Product, quantity: int | float =1):
+        isinstance(product, Product) and (product in self.products and self.products.update
+        ({product: self.products[product] + quantity}) or self.products.update({product: quantity}))
 
     def cost(self):
         return sum(product.price_product * quantity for product, quantity in self.products.items())
+
+    def pay(self, payment_processor):
+        total_cost = self.cost()
+        payment_processor.pay(total_cost)
 
     def __str__(self):
         cart_content = [f'{product} x {quantity}' for product, quantity in self.products.items()]
@@ -44,40 +85,37 @@ while input('Do you want to add a product? (y/n) ').lower().strip() == 'y':
 
 print(you_cart)
 
+discount_type = input("\nSelect discount type (percentage/fixed): ").strip().lower()
+if discount_type == 'percentage':
+    percentage = float(input("Enter discount percentage: "))
+    discount = Percentage_Discount(percentage)
+elif discount_type == 'fixed':
+    amount = float(input("Enter discount amount: "))
+    discount = Fixid_Amount_Discount(amount)
+else:
+    discount = None
 
+if discount:
+    you_cart.apply_discount(discount)
 
+print("\nCart after discount: ")
+print(you_cart)
 
-# # Klass work
-#
-# class Student:
-#     def __init__(self, first_name, last_name, date_of_birth=None):
-#         self.first_name = first_name
-#         self.last_name = last_name
-#         self.date_of_birth = date_of_birth
-#
-#     def __str__(self):
-#         return f'{self.first_name} {self.last_name}'
-#
-#
-# class Group:
-#
-#     def __init__(self, title):
-#         self.title = title
-#         self.__students = []
-#
-#     def add_student(self, student: Student):
-#         if isinstance(student, Student) and student not in self.__students:
-#             self.__students.append(student)
-#
-#     def __str__(self):
-#         return '\n'.join(map(str, self.__students))
-#
-#
-# gr_1 = Group('Group 1')
-# while answer := input('Do you want to add a student? (y/n) ').lower().strip() == 'y':
-#     first_name = input('Enter first name: ').strip().title()
-#     last_name = input('Enter last name: ').strip().title()
-#     st = Student(first_name, last_name)
-#     gr_1.add_student(st)
-#
-# print(gr_1)
+print('Select payment method: ')
+print("1: Credit Card")
+print("2: PayPal")
+print("3: Bank Transfer")
+choice = int(input("Enter your choice: ").strip())
+
+if choice == 1:
+    processor = Credit_Card_Processor()
+elif choice == 2:
+    processor = Pay_Pal_Processor()
+elif choice == 3:
+    processor = Bank_Transfer_Processor()
+else:
+    print("Error")
+    processor = None
+
+if processor:
+    you_cart.pay(processor)
