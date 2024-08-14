@@ -128,39 +128,20 @@ print(animal_sound(x_3))
 
 
 
+################
 
 
+try:
+    a = int(input('a='))
+    b = int(input('b='))
+    res = a/b
 
+    print(res)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+except ValueError as error:
+    print("Try again", error)
+except ZeroDivisionError as error:
+    print('b must not be zero', error)
 
 
 
