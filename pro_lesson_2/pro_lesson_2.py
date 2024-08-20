@@ -144,6 +144,119 @@ except ZeroDivisionError as error:
     print('b must not be zero', error)
 
 
+####################
+
+
+class Box:
+
+    def __init__(self, length, width, height):
+        self.length = length
+        self.width = width
+        self.height = height
+
+    def __mul__(self, other: int):
+        if isinstance(other, int):
+            return Box(self.length * other, self.width * other, self.height * other)
+        return NotImplemented
+
+    def __imul__(self, other):
+        if not isinstance(other, int):
+            return NotImplemented
+        self.length *= other
+        self.width *= other
+        self.height *= other
+        return self
+
+    def __rmul__(self, other):
+        if not isinstance(other, int):
+            return NotImplemented
+        return self.__mul__(other)
+
+    def volume(self):
+        return self.length * self.width * self.height
+
+    def __eq__(self, other):
+        return self.volume() == other.volume()
+
+    def __ne__(self, other):
+        return self.volume() != other.volume()
+
+    def __lt__(self, other):
+        return self.volume() < other.volume()
+
+    def __le__(self, other):
+        return self.volume() <= other.volume()
+
+    def __gt__(self, other):
+        return self.volume() > other.volume()
+
+    def __ge__(self, other):
+        return self.volume() >= other.volume()
+
+    def __str__(self):
+        return f'{self.length} x {self.width} x {self.height}'
+
+
+import random
+x = [Box(random.randint(1, 25), random.randint(1, 25), random.randint(1, 25)) for _ in range(10)]
+print('\n'.join(map(str, x)))
+# print(min(x))
+# print(max(x))
+x.sort(reverse=True)
+print('*' * 20)
+print('\n'.join(map(str, x)))
+
+
+
+##########################
+
+class Student:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return f"Name: {self.name}"
+
+
+class Group:
+    def __init__(self):
+        self.students = []
+
+    def __iadd__(self, other: Student):
+        self.students.append(other)
+        return self
+
+    def __len__(self):
+        return len(self.students)
+
+    def __getitem__(self, index):
+        if isinstance(index, slice):
+            group = Group()
+            group.students = self.students[index]
+            return group
+        if isinstance(index, int):
+            return self.students[index]
+        raise TypeError("Index must be int or slice")
+
+
+group = Group()
+group += Student("Alice")
+group += Student("Bob")
+group += Student("Charlie")
+
+group += Student("Alice 1")
+group += Student("Bob 1")
+group += Student("Charlie 1")
+
+group += Student("Alice 2")
+group += Student("Bob 2")
+group += Student("Charlie 2")
+
+
+x = group[::2]
+
+for i in x:
+    print(i)
 
 
 

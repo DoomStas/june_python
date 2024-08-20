@@ -41,3 +41,11 @@ class Product(LoggingMixin):
             raise InvalidPriceError(new_price)
         self.price_product = new_price
         self.log(f"Price updated for {self.product_name} to ${new_price:.2f}")
+
+    def __eq__(self, other):
+        return (self.product_name == other.product_name and
+                self.description_product == other.description_product and
+                self.price_product == other.price_product)
+
+    def __hash__(self):
+        return hash((self.product_name, self.description_product, self.price_product))

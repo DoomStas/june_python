@@ -1,10 +1,11 @@
 from product import Product
-from cart import Cart
+from cart import Cart, Fraction
 from discount import PercentageDiscount, FixedAmountDiscount
 from payment import CreditCardProcessor, PayPalProcessor, BankTransferProcessor
+from exceptions import InvalidQuantityError
 
 if __name__ == "__main__":
-    you_cart = Cart('Cart')
+    you_cart = Cart('Cart 1')
 
     while input('Do you want to add a product? (y/n) ').lower().strip() == 'y':
         product_name = input('Enter product name: ').strip().title()
@@ -12,8 +13,25 @@ if __name__ == "__main__":
         price_product = float(input('Enter price product: ').strip())
         quantity = int(input('Enter quantity: ').strip())
         product = Product(product_name, description_product, price_product)
-        you_cart.add_product(product, quantity)
+        try:
+            you_cart.add_product(product, quantity)
+        except InvalidQuantityError as e:
+            print(e)
 
+    another_cart = Cart('Cart 2')
+    while input('Do you want to add a product to Cart 2? (y/n) ').lower().strip() == 'y':
+        product_name = input('Enter product name: ').strip().title()
+        description_product = input('Enter description product: ').strip().title()
+        price_product = float(input('Enter price product: ').strip())
+        quantity = int(input('Enter quantity: ').strip())
+        product = Product(product_name, description_product, price_product)
+        try:
+            another_cart.add_product(product, quantity)
+        except InvalidQuantityError as e:
+            print(e)
+
+    you_cart += another_cart
+    print("\nCart after combining:")
     print(you_cart)
 
     discount_type = input("\nSelect discount type (percentage/fixed): ").strip().lower()
@@ -45,7 +63,7 @@ if __name__ == "__main__":
     elif choice == 3:
         processor = BankTransferProcessor()
     else:
-        print("Error")
+        print("Invalid choice, no payment processor selected.")
         processor = None
 
     if processor:
