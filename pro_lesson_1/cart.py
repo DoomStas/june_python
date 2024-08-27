@@ -13,6 +13,7 @@ class Cart(DiscountMixin, LoggingMixin):
         super().__init__()
         self.title = title
         self.products = {}
+        self._iter_index = 0
         self.log(f'Created {title}')
 
     def add_product(self, product: Product, quantity: int | float = 1):
@@ -35,15 +36,15 @@ class Cart(DiscountMixin, LoggingMixin):
         self.log(f"Payment processed for a total of ${total_cost:.2f} using {payment_processor}")
 
     def __iadd__(self, other_cart):
-        if isinstance(other_cart, Cart):
-            for product, quantity in other_cart.products.items():
-                if product in self.products:
-                    self.products[product] += quantity
-                else:
-                    self.products[product] = quantity
-            self.log(f'Cart "{self.title}" combined with cart "{other_cart.title}"')
-        else:
+        if not isinstance(other_cart, Cart):
             raise TypeError("Can only combine with another Cart instance")
+
+        for product, quantity in other_cart.products.items():
+            if product in self.products:
+                self.products[product] += quantity
+            else:
+                self.products[product] = quantity
+        self.log(f'Cart "{self.title}" combined with cart "{other_cart.title}"')
         return self
 
     def __iter__(self):
